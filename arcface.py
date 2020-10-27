@@ -29,7 +29,7 @@ class ArcFace():
         else:
             raise ValueError("Invalid number of layers: {}. Must be one of: 18, 50, 101."-format(layers))
         checkpoint = torch.load(checkpoint_path)
-        self.model = checkpoint['model'].module.to(self.device)
+        self.model = checkpoint['model'].module.eval().to(self.device)
 
     def _preprocess(self, img, landmarks):
         if img.mode != "RGB":
