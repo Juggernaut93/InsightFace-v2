@@ -4,3 +4,8 @@ data/CASIA-WebFace
 data/lfw_funneled
 __pycache__/
 *.tar
+.ipynb_checkpoints/
+InsightFace.egg-info/
+build/
+dist/
+

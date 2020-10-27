@@ -5,9 +5,8 @@ import cv2 as cv
 import numpy as np
 import torch
 
-from align_faces import get_reference_facial_points, warp_and_crop_face
-from config import image_h, image_w
-from retinaface.detector import detect_faces
+from .align_faces import get_reference_facial_points, warp_and_crop_face
+from .config import image_h, image_w
 
 
 def clip_gradient(optimizer, grad_clip):
@@ -81,7 +80,10 @@ def accuracy(scores, targets, k=1):
 
 
 def align_face(img_fn, facial5points):
-    raw = cv.imread(img_fn, True)  # BGR
+    if type(img_fn) is str:
+        raw = cv.imread(img_fn, True)  # BGR
+    else:
+        raw = np.array(img_fn) # PIL Image
     facial5points = np.reshape(facial5points, (2, 5))
 
     crop_size = (image_h, image_w)
@@ -101,6 +103,7 @@ def align_face(img_fn, facial5points):
 
 
 def get_face_attributes(full_path):
+    from retinaface.detector import detect_faces
     try:
         img = cv.imread(full_path, cv.IMREAD_COLOR)
         bounding_boxes, landmarks = detect_faces(img)
@@ -132,7 +135,9 @@ def select_significant_face(bboxes):
 
 
 def get_central_face_attributes(full_path):
-    img = cv.imread(full_path, cv.IMREAD_COLOR)
+    from retinaface.detector import detect_faces
+    if type(full_path) is str:
+        img = cv.imread(full_path, cv.IMREAD_COLOR)
     bboxes, landmarks = detect_faces(img)
 
     if len(landmarks) > 0:
@@ -143,6 +148,7 @@ def get_central_face_attributes(full_path):
 
 
 def get_all_face_attributes(full_path):
+    from retinaface.detector import detect_faces
     img = cv.imread(full_path, cv.IMREAD_COLOR)
     bounding_boxes, landmarks = detect_faces(img)
     return bounding_boxes, landmarks
