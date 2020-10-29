@@ -34,7 +34,8 @@ class ArcFace():
     def _preprocess(self, img, landmarks):
         if img.mode != "RGB":
             img = img.convert("RGB")
-        img = align_face(img, landmarks)
+        if len(landmarks) == 10: # if landmarks is empty or not a valid array, do not align the face
+            img = align_face(img, landmarks)
         transform = transforms.Compose([
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
