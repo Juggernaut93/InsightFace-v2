@@ -44,6 +44,8 @@ class ArcFace():
 
     @_no_grad
     def extract(self, images, landmarks):
+        if len(images) == 0:
+            return np.array([])
         all_features = []
         for start_idx in tqdm(range(0, len(images), self.batch_size)):
             end_idx = min(len(images), start_idx + self.batch_size)
