@@ -38,7 +38,7 @@ class ArcFace():
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
-        if len(landmarks) == 10: # if landmarks is empty or not a valid array, do not align the face
+        if landmarks is not None and len(landmarks) == 10: # if landmarks is empty or not a valid array, do not align the face
             img = align_face(img, landmarks)
         else:
             transform = transforms.Compose([
