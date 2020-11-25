@@ -1,9 +1,10 @@
 from __future__ import print_function
 
 import torch
+import os
 
-from retinaface.data import cfg_mnet
-from retinaface.models.retinaface import RetinaFace
+from .data import cfg_mnet
+from .models.retinaface import RetinaFace
 
 
 def check_keys(model, pretrained_state_dict):
@@ -27,7 +28,8 @@ def remove_prefix(state_dict, prefix):
 
 
 def load_model():
-    pretrained_path = 'retinaface/weights/mobilenet0.25_Final.pth'
+    d = os.path.dirname(__file__)
+    pretrained_path = os.path.join(d, 'weights/mobilenet0.25_Final.pth')
     # print('Loading pretrained model from {}'.format(pretrained_path))
     model = RetinaFace(cfg=cfg_mnet, phase='test')
 

@@ -17,11 +17,14 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    packages = {'InsightFace', 'InsightFace.retinaface'},
-    package_dir = {'InsightFace': '.', 'InsightFace.retinaface': 'retinaface'},
+    packages = {'InsightFace', 'InsightFace.retinaface', 'InsightFace.retinaface.data', 'InsightFace.retinaface.layers', 'InsightFace.retinaface.layers.functions', 'InsightFace.retinaface.layers.modules', 'InsightFace.retinaface.models', 'InsightFace.retinaface.utils', 'InsightFace.retinaface.utils.nms'},
+    package_dir = {'InsightFace': '.', 'InsightFace.retinaface': 'retinaface', 'InsightFace.retinaface.data': 'retinaface/data', 'InsightFace.retinaface.layers': 'retinaface/layers', 'InsightFace.retinaface.layers.functions': 'retinaface/layers/functions', 'InsightFace.retinaface.layers.modules': 'retinaface/layers/modules', 'InsightFace.retinaface.models': 'retinaface/models', 'InsightFace.retinaface.utils': 'retinaface/utils', 'InsightFace.retinaface.utils.nms': 'retinaface/utils/nms'},
     python_requires='>=3.6',
     data_files = [('InsightFace/weights',
                     ['weights/w18.tar',
                      'weights/w50.tar',
-                     'weights/w101.tar'])]
+                     'weights/w101.tar']),
+                  ('InsightFace/retinaface/weights',
+                    ['retinaface/weights/mobilenet0.25_Final.pth'])
+                 ]
 )
